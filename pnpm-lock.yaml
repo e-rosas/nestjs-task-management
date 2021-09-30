@@ -27,6 +27,7 @@ specifiers:
   ts-node: ^10.0.0
   tsconfig-paths: ^3.10.1
   typescript: ^4.3.5
+  uuid: ^8.3.2
 
 dependencies:
   '@nestjs/common': 8.0.7_486826780eeff986d3746a62b5df4b6b
@@ -35,6 +36,7 @@ dependencies:
   reflect-metadata: 0.1.13
   rimraf: 3.0.2
   rxjs: 7.3.0
+  uuid: 8.3.2
 
 devDependencies:
   '@nestjs/cli': 8.1.1

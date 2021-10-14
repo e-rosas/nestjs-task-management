@@ -13,7 +13,7 @@ export class TasksService {
     @InjectRepository(TasksRepository)
     private tasksRepository: TasksRepository,
   ) {}
-  async getTasksById(id: string): Promise<Task> {
+  async getTaskById(id: string): Promise<Task> {
     const found = await this.tasksRepository.findOneOrFail(id);
 
     if (!found) {
@@ -22,6 +22,19 @@ export class TasksService {
 
     return found;
   }
+
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.tasksRepository.createTask(createTaskDto);
+  }
+
+  async deleteTaskById(id: string): Promise<void> {
+    const result = await this.tasksRepository.delete(id);
+
+    if (result.affected === 0) {
+      throw new NotFoundException(`Task with ID "${id}" not found.`);
+    }
+  }
+
   /* private tasks: Task[] = [];
 
   getAllTasks(): Task[] {
@@ -43,26 +56,6 @@ export class TasksService {
     return tasks;
   }
 
-  getTaskById(id: string): Task {
-    const task = this.tasks.find((task) => task.id === id);
-    if (!task) {
-      throw new NotFoundException(`Task with ID "${id}" not found.`);
-    }
-    return task;
-  }
-
-  createTask(createTaskDto: CreateTaskDto): Task {
-    const { title, description } = createTaskDto;
-    const task: Task = {
-      id: uuid(),
-      title,
-      description,
-      status: TaskStatus.OPEN,
-    };
-    this.tasks.push(task);
-    return task;
-  }
-
   updateTaskStatus(updateTaskStatusDto: UpdateTaskStatusDto, id: string): Task {
     const { status } = updateTaskStatusDto;
     const task = this.getTaskById(id);
@@ -70,8 +63,5 @@ export class TasksService {
     return task;
   }
 
-  deleteTaskById(id: string): void {
-    const found = this.getTaskById(id);
-    this.tasks = this.tasks.filter((task) => task.id !== found.id);
-  } */
+   */
 }
